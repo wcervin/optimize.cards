@@ -3,8 +3,8 @@ FROM node:20-alpine AS build
 WORKDIR /app
 ARG APP_VERSION=unknown
 ARG BUILD_TIME=unknown
-COPY package.json package-lock.json* ./
-RUN npm ci
+COPY package.json ./
+RUN npm install
 COPY . .
 RUN npm run build
 
@@ -16,8 +16,8 @@ ARG APP_VERSION=unknown
 ARG BUILD_TIME=unknown
 ENV APP_VERSION=$APP_VERSION
 ENV BUILD_TIME=$BUILD_TIME
-COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev
+COPY package.json ./
+RUN npm install --omit=dev
 COPY --from=build /app/dist ./dist
 COPY server.js ./server.js
 EXPOSE 3000

@@ -1,6 +1,7 @@
 # Points Strategy Planner — Full App (React + Vite + Express + Docker + CI)
 
 This is a complete, ready-to-build app with:
+
 - React + Vite + TypeScript SPA
 - Minimal CSS (no Tailwind dependency)
 - Rules engine for Avios Triangle, Star Alliance, SkyTeam, and hotels
@@ -8,6 +9,10 @@ This is a complete, ready-to-build app with:
 - Docker multi-stage build + healthcheck
 - docker-compose with healthcheck
 - GitHub Actions workflow that builds, pushes to GHCR, and smoke tests `/version`
+- **NEW**: ESLint + Prettier for code quality
+- **NEW**: Vitest + React Testing Library for testing
+- **NEW**: Error boundaries for better UX
+- **NEW**: Bundle analysis tools
 
 ## Quick start (Docker-based development)
 
@@ -22,6 +27,43 @@ docker compose -f docker-compose.dev.yml up --build
 # Health: http://localhost:8080/health (production)
 # Version: http://localhost:8080/version (production)
 ```
+
+## Development Tools (Container-based)
+
+All development tools run inside Docker containers - no host dependencies required!
+
+```bash
+# Start development container
+docker compose -f docker-compose.dev.yml up --build
+
+# In another terminal, run tools inside the container:
+docker compose -f docker-compose.dev.yml exec planner-dev npm run lint
+docker compose -f docker-compose.dev.yml exec planner-dev npm run test
+docker compose -f docker-compose.dev.yml exec planner-dev npm run format
+docker compose -f docker-compose.dev.yml exec planner-dev npm run analyze
+```
+
+### Convenience Script (Recommended)
+
+Use the included convenience script for easier access to development tools:
+
+```bash
+# Make sure the script is executable
+chmod +x scripts/dev-tools.sh
+
+# Run development tools
+./scripts/dev-tools.sh lint          # Run ESLint
+./scripts/dev-tools.sh test          # Run tests
+./scripts/dev-tools.sh format        # Format code
+./scripts/dev-tools.sh analyze       # Analyze bundle
+./scripts/dev-tools.sh dev           # Start dev server
+./scripts/dev-tools.sh build         # Build production
+
+# Show all available commands
+./scripts/dev-tools.sh help
+```
+
+**No host dependencies required** - everything runs inside Docker containers!
 
 ## Alternative: Local development (requires Node.js)
 
@@ -53,12 +95,14 @@ docker compose up --build
 ## Docker Compose Options
 
 **Production:**
+
 ```bash
 docker compose up --build
 # App: http://localhost:8080
 ```
 
 **Development (with hot reloading):**
+
 ```bash
 docker compose -f docker-compose.dev.yml up --build
 # App: http://localhost:5173
@@ -72,28 +116,32 @@ docker compose -f docker-compose.dev.yml up --build
 ---
 
 ## Notes
+
 - The UI uses plain CSS for portability; you can swap in Tailwind/shadcn later.
 - `src/PointsStrategyPlanner.tsx` holds the rules engine and UI.
 - **Container-first approach**: All development and production runs are containerized for consistency.
 - **No host dependencies**: The app runs entirely inside Docker containers with proper networking.
 - **Development mode**: Use `docker-compose.dev.yml` for hot reloading and development tools.
+- **Code Quality**: ESLint + Prettier ensure consistent code style.
+- **Testing**: Vitest + React Testing Library for comprehensive testing.
+- **Error Handling**: Error boundaries catch and display errors gracefully.
 
 ## 📋 Version Information
 
-| Field | Value |
-|-------|-------|
-| **Current Version** | `1.0.1` |
-| **Last Updated** | `2025-08-12 19:24:58 UTC` |
-| **NTP Server** | `system` |
-| **NTP Offset** | `0.000000 seconds` |
-| **Uncertainty** | `±0.000000 seconds` |
+| Field               | Value                     |
+| ------------------- | ------------------------- |
+| **Current Version** | `1.0.1`                   |
+| **Last Updated**    | `2025-08-12 19:24:58 UTC` |
+| **NTP Server**      | `system`                  |
+| **NTP Offset**      | `0.000000 seconds`        |
+| **Uncertainty**     | `±0.000000 seconds`       |
 
 ## 📋 Version Information
 
-| Field | Value |
-|-------|-------|
-| **Current Version** | `1.0.2` |
-| **Last Updated** | `2025-08-12 19:25:57 UTC` |
-| **NTP Server** | `system` |
-| **NTP Offset** | `0.000000 seconds` |
-| **Uncertainty** | `±0.000000 seconds` |
+| Field               | Value                     |
+| ------------------- | ------------------------- |
+| **Current Version** | `1.0.2`                   |
+| **Last Updated**    | `2025-08-12 19:25:57 UTC` |
+| **NTP Server**      | `system`                  |
+| **NTP Offset**      | `0.000000 seconds`        |
+| **Uncertainty**     | `±0.000000 seconds`       |
