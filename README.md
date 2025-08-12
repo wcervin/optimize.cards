@@ -87,3 +87,13 @@ docker compose -f docker-compose.dev.yml up --build
 | **NTP Server** | `system` |
 | **NTP Offset** | `0.000000 seconds` |
 | **Uncertainty** | `±0.000000 seconds` |
+
+## 📋 Version Information
+
+| Field | Value |
+|-------|-------|
+| **Current Version** | `1.0.2` |
+| **Last Updated** | `2025-08-12 19:25:57 UTC` |
+| **NTP Server** | `system` |
+| **NTP Offset** | `0.000000 seconds` |
+| **Uncertainty** | `±0.000000 seconds` |
