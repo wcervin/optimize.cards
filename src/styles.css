@@ -247,9 +247,26 @@ body {
 
 .left-column,
 .right-column {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto auto;
   gap: 24px;
+  align-items: start;
+}
+
+/* Ensure specific alignment for each section type */
+.left-column .column-section:nth-child(1),
+.right-column .column-section:nth-child(1) {
+  grid-row: 1;
+}
+
+.left-column .section-group,
+.right-column .column-section:nth-child(2) {
+  grid-row: 2;
+}
+
+.left-column .column-section:nth-child(3),
+.right-column .column-section:nth-child(3) {
+  grid-row: 3;
 }
 
 /* Section Groups for better visual organization */
@@ -259,7 +276,10 @@ body {
   border-radius: 16px;
   padding: 20px;
   transition: all 0.3s ease;
-  margin-bottom: 24px;
+  margin-bottom: 0;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 .section-group:hover {
@@ -274,7 +294,10 @@ body {
   border-radius: 16px;
   padding: 20px;
   transition: all 0.3s ease;
-  margin-bottom: 24px;
+  margin-bottom: 0;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 .column-section:hover {
@@ -284,6 +307,13 @@ body {
 
 .column-section:last-child {
   margin-bottom: 0;
+}
+
+/* Ensure consistent heights for alignment */
+.column-section .options-container,
+.column-section .selected-items-container {
+  flex: 1;
+  min-height: 120px;
 }
 
 /* Credit Cards Section - Grey to Green gradient */
