@@ -281,14 +281,14 @@ body {
   display: none;
 }
 
-/* Home Airport Inputs */
-.home-airport-inputs {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(45, 58, 106, 0.3);
+/* Home Airport Section */
+.home-airport-section {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(45, 58, 106, 0.3);
 }
 
-.home-airport-inputs .h4 {
+.home-airport-section .h4 {
   font-size: 14px;
   font-weight: 600;
   margin: 0 0 12px 0;
@@ -299,7 +299,62 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+/* Selected Airports Display */
+.selected-airports {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.airport-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #2d3a6a, #1e3a8a);
+  border: 1px solid rgba(110, 168, 254, 0.3);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.remove-airport-btn {
+  background: none;
+  border: none;
+  color: var(--error);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.remove-airport-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
+}
+
+/* Airline Options */
+.airline-options {
+  margin-top: 20px;
+}
+
+.airline-options .h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--muted);
 }
 
 @media (min-width: 640px) {

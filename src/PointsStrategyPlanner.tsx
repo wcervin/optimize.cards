@@ -429,9 +429,9 @@ export default function PointsStrategyPlanner() {
     'ps.hotels',
     ['marriott', 'hilton', 'hyatt']
   );
-  const [homeAirport, setHomeAirport] = useLocalState<string>(
-    'ps.airport',
-    'DFW'
+  const [homeAirports, setHomeAirports] = useLocalState<string[]>(
+    'ps.airports',
+    ['DFW']
   );
 
   const planBlocks = useMemo(
@@ -440,9 +440,9 @@ export default function PointsStrategyPlanner() {
         cards: selectedCards,
         airPrefs: preferredAir,
         hotelPrefs: preferredHotels,
-        airport: homeAirport,
+        airports: homeAirports,
       }),
-    [selectedCards, preferredAir, preferredHotels, homeAirport]
+    [selectedCards, preferredAir, preferredHotels, homeAirports]
   );
 
   const addCard = (cardId: string) => {
@@ -473,6 +473,16 @@ export default function PointsStrategyPlanner() {
 
   const removeHotel = (hotelId: string) => {
     setPreferredHotels(preferredHotels.filter(id => id !== hotelId));
+  };
+
+  const addHomeAirport = (airportCode: string) => {
+    if (!homeAirports.includes(airportCode)) {
+      setHomeAirports([...homeAirports, airportCode]);
+    }
+  };
+
+  const removeHomeAirport = (airportCode: string) => {
+    setHomeAirports(homeAirports.filter(code => code !== airportCode));
   };
 
   return (
@@ -518,22 +528,86 @@ export default function PointsStrategyPlanner() {
               </div>
             </div>
 
-            {/* Airlines Section */}
-            <div className="column-section">
-              <div className="h3">Airline Programs</div>
-              <div className="options-container">
-                {ALLIANCES.map(airline => (
-                  <div
-                    key={airline.id}
-                    className={`option-item ${preferredAir.includes(airline.id) ? 'selected' : ''}`}
-                    onClick={() => addAirline(airline.id)}
+            {/* Airlines & Home Airport Section */}
+            <div className="section-group">
+              <div className="section-header">
+                <div className="h3">Airline Programs & Home Airports</div>
+              </div>
+              
+              {/* Home Airport Selection - At the top */}
+              <div className="home-airport-section">
+                <div className="h4">Home Airports</div>
+                <div className="airport-input-row">
+                  <select
+                    className="select"
+                    aria-label="Select common airport"
+                    value=""
+                    onChange={e => {
+                      if (e.target.value) {
+                        addHomeAirport(e.target.value);
+                        e.target.value = '';
+                      }
+                    }}
                   >
-                    <div className="option-content">{airline.label}</div>
-                    {preferredAir.includes(airline.id) && (
-                      <span className="option-checkmark">✓</span>
-                    )}
-                  </div>
-                ))}
+                    <option value="">-- Add airport --</option>
+                    {AIRPORTS.map(a => (
+                      <option key={a.code} value={a.code}>
+                        {a.code} — {a.city}, {a.country}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    className="input mono"
+                    placeholder="DFW"
+                    maxLength={3}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && e.currentTarget.value) {
+                        const code = e.currentTarget.value.toUpperCase();
+                        if (/^[A-Z]{3}$/.test(code)) {
+                          addHomeAirport(code);
+                          e.currentTarget.value = '';
+                        }
+                      }
+                    }}
+                  />
+                </div>
+                
+                {/* Selected Home Airports */}
+                <div className="selected-airports">
+                  {homeAirports.map(airportCode => (
+                    <div key={airportCode} className="airport-tag">
+                      <span>{airportCode}</span>
+                      <button
+                        className="remove-airport-btn"
+                        onClick={() => removeHomeAirport(airportCode)}
+                        aria-label={`Remove ${airportCode}`}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                  {homeAirports.length === 0 && (
+                    <div className="small empty-state">No home airports selected</div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="airline-options">
+                <div className="h4">Airline Programs</div>
+                <div className="options-container">
+                  {ALLIANCES.map(airline => (
+                    <div
+                      key={airline.id}
+                      className={`option-item ${preferredAir.includes(airline.id) ? 'selected' : ''}`}
+                      onClick={() => addAirline(airline.id)}
+                    >
+                      <div className="option-content">{airline.label}</div>
+                      {preferredAir.includes(airline.id) && (
+                        <span className="option-checkmark">✓</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -671,7 +745,7 @@ export default function PointsStrategyPlanner() {
                   selectedCards,
                   preferredAir,
                   preferredHotels,
-                  homeAirport,
+                  homeAirports,
                   plan: planBlocks,
                 },
                 null,
@@ -702,7 +776,7 @@ export default function PointsStrategyPlanner() {
               ]);
               setPreferredAir(['oneworld', 'ba', 'ib', 'qr']);
               setPreferredHotels(['marriott', 'hilton', 'hyatt']);
-              setHomeAirport('DFW');
+              setHomeAirports(['DFW']);
             }}
           >
             Reset Defaults
