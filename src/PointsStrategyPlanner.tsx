@@ -499,7 +499,6 @@ export default function PointsStrategyPlanner() {
         <div className="two-column-layout">
           {/* Left Column - Available Options */}
           <div>
-            <div className="h2">Available Options</div>
             
             {/* Cards Section */}
             <div className="column-section">
@@ -633,7 +632,6 @@ export default function PointsStrategyPlanner() {
 
           {/* Right Column - Selected Items */}
           <div>
-            <div className="h2">Selected Items</div>
             
             {/* Selected Cards */}
             <div className="column-section">

@@ -254,16 +254,58 @@ body {
 
 /* Section Groups for better visual organization */
 .section-group {
+  background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(251, 191, 36, 0.2));
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  margin-bottom: 24px;
+}
+
+.section-group:hover {
+  border-color: rgba(251, 191, 36, 0.6);
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.2);
+}
+
+/* Individual section outlines for better alignment */
+.column-section {
   background: rgba(18, 25, 50, 0.3);
   border: 1px solid rgba(45, 58, 106, 0.4);
   border-radius: 16px;
   padding: 20px;
   transition: all 0.3s ease;
+  margin-bottom: 24px;
 }
 
-.section-group:hover {
+.column-section:hover {
   border-color: rgba(110, 168, 254, 0.3);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.column-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Credit Cards Section - Grey to Green gradient */
+.column-section:has(.h3:contains("Credit Cards")) {
+  background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(34, 197, 94, 0.2));
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.column-section:has(.h3:contains("Credit Cards")):hover {
+  border-color: rgba(34, 197, 94, 0.6);
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
+}
+
+/* Hotels Section - Grey to Blue gradient */
+.column-section:has(.h3:contains("Hotel Programs")) {
+  background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(59, 130, 246, 0.2));
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.column-section:has(.h3:contains("Hotel Programs")):hover {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
 }
 
 .section-header {
@@ -275,10 +317,39 @@ body {
 .section-header .h3 {
   margin: 0;
   color: var(--accent);
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .section-header .h3::after {
   display: none;
+}
+
+/* Enhanced section titles */
+.column-section .h3 {
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.column-section .h3::after {
+  display: none;
+}
+
+/* Credit Cards section title - Green accent */
+.column-section:has(.h3:contains("Credit Cards")) .h3 {
+  color: #22c55e;
+}
+
+/* Hotels section title - Blue accent */
+.column-section:has(.h3:contains("Hotel Programs")) .h3 {
+  color: #3b82f6;
+}
+
+/* Airports/Airlines section title - Yellow accent */
+.section-group .h3 {
+  color: #fbbf24;
 }
 
 /* Home Airport Section */
