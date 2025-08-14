@@ -80,33 +80,37 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+/* Main container styling - remove double borders */
 .card {
-  background: var(--card);
-  border: 1px solid rgba(38, 50, 96, 0.6);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: transparent; /* Remove background to avoid double borders */
+  border: none; /* Remove main border to avoid double borders */
+  border-radius: 0; /* Remove border radius */
+  box-shadow: none; /* Remove main shadow to avoid double shadows */
+  -webkit-backdrop-filter: none; /* Remove backdrop filter */
+  backdrop-filter: none; /* Remove backdrop filter */
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  transform: translateY(-2px);
+  box-shadow: none; /* Remove hover shadow */
+  transform: none; /* Remove hover transform */
 }
 
 @media (min-width: 768px) {
   .card {
-    border-radius: 24px;
+    border-radius: 0; /* Remove border radius */
   }
 }
+
 .card .hd {
   padding: 18px 20px;
   border-bottom: 1px solid #263260;
 }
+
 .card .bd {
   padding: 18px 20px;
 }
+
 .h1 {
   font-size: 20px;
   display: flex;
@@ -278,38 +282,42 @@ body {
   grid-row: 3; 
 }
 
-/* Section Groups for better visual organization */
+/* Section Groups for better visual organization - Standardized styling */
 .section-group {
   background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(251, 191, 36, 0.2)); /* Yellow gradient */
   border: 1px solid rgba(251, 191, 36, 0.4); /* Yellow border */
   border-radius: 16px;
-  padding: 20px;
+  padding: 24px; /* Standardized padding */
   transition: all 0.3s ease;
   margin-bottom: 0;
   min-height: 200px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Consistent shadow */
 }
 .section-group:hover {
   border-color: rgba(251, 191, 36, 0.6); /* Yellow hover */
-  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.2); /* Yellow shadow */
+  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.2); /* Enhanced hover shadow */
+  transform: translateY(-2px); /* Subtle hover lift */
 }
 
-/* Individual section outlines for better alignment */
+/* Individual section outlines for better alignment - Standardized styling */
 .column-section {
   background: rgba(18, 25, 50, 0.3); /* Default grey background */
   border: 1px solid rgba(45, 58, 106, 0.4);
   border-radius: 16px;
-  padding: 20px;
+  padding: 24px; /* Standardized padding */
   transition: all 0.3s ease;
   margin-bottom: 0;
   min-height: 200px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Consistent shadow */
 }
 .column-section:hover {
   border-color: rgba(110, 168, 254, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Enhanced hover shadow */
+  transform: translateY(-2px); /* Subtle hover lift */
 }
 .column-section:last-child { margin-bottom: 0; }
 
@@ -327,7 +335,7 @@ body {
 }
 .column-section:has(.h3:contains("Credit Cards")):hover {
   border-color: rgba(34, 197, 94, 0.6);
-  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
+  box-shadow: 0 8px 32px rgba(34, 197, 94, 0.2); /* Enhanced hover shadow */
 }
 
 /* Hotels Section - Grey to Blue gradient */
@@ -337,7 +345,7 @@ body {
 }
 .column-section:has(.h3:contains("Hotel Programs")):hover {
   border-color: rgba(59, 130, 246, 0.6);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2); /* Enhanced hover shadow */
 }
 
 /* Selected Cards section - Green gradient to match Credit Cards */
@@ -347,7 +355,7 @@ body {
 }
 .column-section:has(.h3:contains("Selected Cards")):hover {
   border-color: rgba(34, 197, 94, 0.6);
-  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
+  box-shadow: 0 8px 32px rgba(34, 197, 94, 0.2); /* Enhanced hover shadow */
 }
 
 /* Selected Hotels section - Blue gradient to match Hotel Programs */
@@ -357,7 +365,7 @@ body {
 }
 .column-section:has(.h3:contains("Selected Hotels")):hover {
   border-color: rgba(59, 130, 246, 0.6);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2); /* Enhanced hover shadow */
 }
 
 .section-header .h3 {
@@ -461,7 +469,7 @@ body {
 /* Selected Airports & Airlines Sections */
 .selected-airports-section,
 .selected-airlines-section {
-  margin-bottom: 20px;
+  margin-bottom: 16px; /* Reduced from 20px for consistency */
 }
 .selected-airports-section:last-child,
 .selected-airlines-section:last-child {
@@ -476,10 +484,6 @@ body {
 }
 
 @media (min-width: 640px) {
-  .section-group {
-    padding: 24px;
-  }
-  
   .airport-input-row {
     gap: 16px;
   }
@@ -490,10 +494,6 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
-  
-  .section-group {
-    padding: 28px;
-  }
 }
 
 /* Additional responsive enhancements */
@@ -501,29 +501,22 @@ body {
   .two-column-layout {
     gap: 36px;
   }
-  
-  .section-group {
-    padding: 32px;
-  }
 }
 
 @media (min-width: 1280px) {
   .two-column-layout {
     gap: 40px;
   }
-  
-  .section-group {
-    padding: 36px;
-  }
 }
 
-.column-section {
+/* Remove conflicting margin styles - grid gap handles spacing */
+/* .column-section {
   margin-bottom: 20px;
 }
 
 .column-section:last-child {
   margin-bottom: 0;
-}
+} */
 
 .options-container {
   max-height: 300px;
