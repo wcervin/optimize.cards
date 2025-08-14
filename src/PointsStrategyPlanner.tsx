@@ -749,23 +749,22 @@ export default function PointsStrategyPlanner() {
             Prioritized by your selections with explicit paths and notes.
           </div>
           {planBlocks.length === 0 && (
-            <div className="small" style={{ marginTop: 8 }}>
+            <div className="small strategy-plan-empty">
               Add at least one card, an airline network, and a hotel program.
             </div>
           )}
-          <div style={{ display: 'grid', gap: 12, marginTop: 12 }}>
+          <div className="strategy-plan-grid">
             {planBlocks.map((b, i) => (
               <div
                 key={i}
-                className="card"
-                style={{ background: '#0f1636', border: '1px solid #2d3a6a' }}
+                className="card strategy-plan-card"
               >
                 <div className="bd">
-                  <div className="h1" style={{ fontSize: 16 }}>
+                  <div className="h1 strategy-plan-title">
                     {b.title}
                   </div>
                   {b.paths && b.paths.length > 0 && (
-                    <div style={{ marginTop: 10 }}>
+                    <div className="strategy-plan-section">
                       <div className="small">Transfer Paths:</div>
                       <ul className="list">
                         {b.paths.map((p, idx) => (
@@ -779,7 +778,7 @@ export default function PointsStrategyPlanner() {
                     </div>
                   )}
                   {b.details && b.details.length > 0 && (
-                    <div style={{ marginTop: 10 }}>
+                    <div className="strategy-plan-section">
                       <div className="small">Notes:</div>
                       <ul className="list">
                         {b.details.map((d, j) => (
@@ -830,25 +829,11 @@ function MultiSelect({
         value={query}
         onChange={e => setQuery(e.target.value)}
       />
-      <div
-        style={{
-          maxHeight: 180,
-          overflow: 'auto',
-          border: '1px solid #2d3a6a',
-          borderRadius: 10,
-          marginTop: 6,
-          padding: 8,
-        }}
-      >
+      <div className="multiselect-container">
         {filtered.map(opt => (
           <label
             key={opt.value}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '4px 0',
-            }}
+            className="multiselect-option"
           >
             <input
               type="checkbox"
@@ -857,7 +842,7 @@ function MultiSelect({
             />
             <span>{opt.label}</span>
             {opt.hint && (
-              <span className="small" style={{ marginLeft: 6 }}>
+              <span className="small option-hint">
                 {opt.hint}
               </span>
             )}

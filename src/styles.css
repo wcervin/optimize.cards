@@ -246,6 +246,51 @@ body {
 .home-airport-section {
   margin-bottom: 24px;
 }
+
+/* Strategy Plan Styles */
+.strategy-plan-empty {
+  margin-top: 8px;
+}
+
+.strategy-plan-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.strategy-plan-card {
+  background: #0f1636;
+  border: 1px solid #2d3a6a;
+}
+
+.strategy-plan-title {
+  font-size: 16px;
+}
+
+.strategy-plan-section {
+  margin-top: 10px;
+}
+
+.option-hint {
+  margin-left: 6px;
+}
+
+/* MultiSelect Styles */
+.multiselect-container {
+  max-height: 180px;
+  overflow: auto;
+  border: 1px solid #2d3a6a;
+  border-radius: 10px;
+  margin-top: 6px;
+  padding: 8px;
+}
+
+.multiselect-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
 .list {
   list-style: disc;
   margin-left: 18px;
