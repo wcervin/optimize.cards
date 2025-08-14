@@ -64,6 +64,20 @@ body {
   align-items: center;
   gap: 8px;
 }
+
+.h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--ink);
+}
+
+.h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--ink);
+}
 .desc {
   color: var(--muted);
   font-size: 13px;
@@ -118,6 +132,119 @@ body {
   border: none;
   color: #04142f;
   font-weight: 700;
+}
+
+.btn.small {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+/* Two Column Layout */
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.column-section {
+  margin-bottom: 20px;
+}
+
+.column-section:last-child {
+  margin-bottom: 0;
+}
+
+.options-container {
+  max-height: 200px;
+  overflow: auto;
+  border: 1px solid #2d3a6a;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #1a2332;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.option-item:hover {
+  background-color: #1a2332;
+}
+
+.option-item.selected {
+  background-color: #2d3a6a;
+}
+
+.option-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.option-content {
+  flex: 1;
+}
+
+.option-name {
+  font-weight: bold;
+}
+
+.option-details {
+  color: #8b9dc3;
+}
+
+.option-checkmark {
+  color: #4CAF50;
+  font-size: 18px;
+}
+
+.selected-items-container {
+  min-height: 100px;
+  border: 1px solid #2d3a6a;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.empty-state {
+  color: #8b9dc3;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.selected-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #1a2332;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.selected-item:last-child {
+  margin-bottom: 0;
+}
+
+.remove-button {
+  background-color: #d32f2f;
+  border: none;
+  color: white;
+}
+
+.remove-button:hover {
+  background-color: #b71c1c;
+}
+
+.home-airport-section {
+  margin-bottom: 24px;
 }
 .list {
   list-style: disc;

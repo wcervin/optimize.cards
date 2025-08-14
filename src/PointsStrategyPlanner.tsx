@@ -445,6 +445,36 @@ export default function PointsStrategyPlanner() {
     [selectedCards, preferredAir, preferredHotels, homeAirport]
   );
 
+  const addCard = (cardId: string) => {
+    if (!selectedCards.includes(cardId)) {
+      setSelectedCards([...selectedCards, cardId]);
+    }
+  };
+
+  const removeCard = (cardId: string) => {
+    setSelectedCards(selectedCards.filter(id => id !== cardId));
+  };
+
+  const addAirline = (airlineId: string) => {
+    if (!preferredAir.includes(airlineId)) {
+      setPreferredAir([...preferredAir, airlineId]);
+    }
+  };
+
+  const removeAirline = (airlineId: string) => {
+    setPreferredAir(preferredAir.filter(id => id !== airlineId));
+  };
+
+  const addHotel = (hotelId: string) => {
+    if (!preferredHotels.includes(hotelId)) {
+      setPreferredHotels([...preferredHotels, hotelId]);
+    }
+  };
+
+  const removeHotel = (hotelId: string) => {
+    setPreferredHotels(preferredHotels.filter(id => id !== hotelId));
+  };
+
   return (
     <div className="card">
       <div className="hd">
@@ -455,191 +485,312 @@ export default function PointsStrategyPlanner() {
         </div>
       </div>
       <div className="bd">
-        <div className="row">
+        {/* Two Column Layout */}
+        <div className="two-column-layout">
+          {/* Left Column - Available Options */}
           <div>
-            <label className="label">Card(s)</label>
-            <MultiSelect
-              options={ALL_CARDS.map(c => ({
-                value: c.id,
-                label: `${c.name} — ${c.issuer}`,
-                hint: c.currency,
-              }))}
-              value={selectedCards}
-              onChange={setSelectedCards}
-            />
-            <div className="badges">
-              {ALL_CARDS.filter(c => selectedCards.includes(c.id)).map(c => (
-                <span key={c.id} className="badge">
-                  {c.name}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label className="label">Preferred Airline(s) / Network</label>
-            <MultiSelect
-              options={ALLIANCES.map(a => ({ value: a.id, label: a.label }))}
-              value={preferredAir}
-              onChange={setPreferredAir}
-            />
-          </div>
-
-          <div>
-            <label className="label">Preferred Hotel Program(s)</label>
-            <MultiSelect
-              options={HOTEL_PROGRAMS.map(h => ({
-                value: h.id,
-                label: h.label,
-              }))}
-              value={preferredHotels}
-              onChange={setPreferredHotels}
-            />
-          </div>
-
-          <div>
-            <label className="label">Preferred Home Airport (IATA)</label>
-            <div className="row">
-              <select
-                className="select"
-                value={
-                  AIRPORTS.find(a => a.code === homeAirport.toUpperCase())
-                    ? homeAirport.toUpperCase()
-                    : ''
-                }
-                onChange={e => setHomeAirport(e.target.value)}
-              >
-                <option value="">-- Pick common airport --</option>
-                {AIRPORTS.map(a => (
-                  <option key={a.code} value={a.code}>
-                    {a.code} — {a.city}, {a.country}
-                  </option>
-                ))}
-              </select>
-              <input
-                className="input mono"
-                value={homeAirport}
-                onChange={e => setHomeAirport(e.target.value.toUpperCase())}
-                placeholder="DFW"
-                maxLength={3}
-              />
-              {!/^[A-Z]{3}$/.test(homeAirport.toUpperCase()) && (
-                <div className="small">IATA codes are 3 letters (A–Z).</div>
-              )}
-            </div>
-          </div>
-
-          <div className="hr"></div>
-
-          <div className="badges">
-            <button
-              className="btn primary"
-              onClick={() =>
-                window.scrollTo({
-                  top: document.body.scrollHeight,
-                  behavior: 'smooth',
-                })
-              }
-            >
-              Run Rules Engine
-            </button>
-            <button
-              className="btn"
-              onClick={() => {
-                const json = JSON.stringify(
-                  {
-                    selectedCards,
-                    preferredAir,
-                    preferredHotels,
-                    homeAirport,
-                    plan: planBlocks,
-                  },
-                  null,
-                  2
-                );
-                download('points_strategy_plan.json', json);
-              }}
-            >
-              Export JSON
-            </button>
-            <button
-              className="btn"
-              onClick={() => {
-                const csv = toCSV(planBlocks);
-                download('points_strategy_plan.csv', csv, 'text/csv');
-              }}
-            >
-              Export CSV
-            </button>
-            <button
-              className="btn"
-              onClick={() => {
-                setSelectedCards([
-                  'capone-venture',
-                  'amex-platinum',
-                  'hilton-aspire',
-                  'chase-ink-preferred',
-                ]);
-                setPreferredAir(['oneworld', 'ba', 'ib', 'qr']);
-                setPreferredHotels(['marriott', 'hilton', 'hyatt']);
-                setHomeAirport('DFW');
-              }}
-            >
-              Reset Defaults
-            </button>
-          </div>
-
-          <div className="hr"></div>
-
-          <div>
-            <div className="h1">Optimized Strategy Plan</div>
-            <div className="small">
-              Prioritized by your selections with explicit paths and notes.
-            </div>
-            {planBlocks.length === 0 && (
-              <div className="small" style={{ marginTop: 8 }}>
-                Add at least one card, an airline network, and a hotel program.
-              </div>
-            )}
-            <div style={{ display: 'grid', gap: 12, marginTop: 12 }}>
-              {planBlocks.map((b, i) => (
-                <div
-                  key={i}
-                  className="card"
-                  style={{ background: '#0f1636', border: '1px solid #2d3a6a' }}
-                >
-                  <div className="bd">
-                    <div className="h1" style={{ fontSize: 16 }}>
-                      {b.title}
+            <div className="h2">Available Options</div>
+            
+            {/* Cards Section */}
+            <div className="column-section">
+              <div className="h3">Credit Cards</div>
+              <div className="options-container">
+                {ALL_CARDS.map(card => (
+                  <div
+                    key={card.id}
+                    className={`option-item ${selectedCards.includes(card.id) ? 'selected' : ''}`}
+                    onClick={() => addCard(card.id)}
+                  >
+                    <div className="option-content">
+                      <div className="option-name">{card.name}</div>
+                      <div className="small">{card.issuer} — {card.currency}</div>
+                      {card.tags && (
+                        <div className="option-details small">
+                          {card.tags.join(', ')}
+                        </div>
+                      )}
                     </div>
-                    {b.paths && b.paths.length > 0 && (
-                      <div style={{ marginTop: 10 }}>
-                        <div className="small">Transfer Paths:</div>
-                        <ul className="list">
-                          {b.paths.map((p, idx) => (
-                            <li key={idx}>
-                              <b>{p.source}</b> → <b>{p.to}</b>
-                              {p.via ? ` via ${p.via}` : ''}
-                              {p.note ? ` — ${p.note}` : ''}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {b.details && b.details.length > 0 && (
-                      <div style={{ marginTop: 10 }}>
-                        <div className="small">Notes:</div>
-                        <ul className="list">
-                          {b.details.map((d, j) => (
-                            <li key={j}>{d}</li>
-                          ))}
-                        </ul>
-                      </div>
+                    {selectedCards.includes(card.id) && (
+                      <span className="option-checkmark">✓</span>
                     )}
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
+
+            {/* Airlines Section */}
+            <div className="column-section">
+              <div className="h3">Airline Programs</div>
+              <div className="options-container">
+                {ALLIANCES.map(airline => (
+                  <div
+                    key={airline.id}
+                    className={`option-item ${preferredAir.includes(airline.id) ? 'selected' : ''}`}
+                    onClick={() => addAirline(airline.id)}
+                  >
+                    <div className="option-content">{airline.label}</div>
+                    {preferredAir.includes(airline.id) && (
+                      <span className="option-checkmark">✓</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Hotels Section */}
+            <div className="column-section">
+              <div className="h3">Hotel Programs</div>
+              <div className="options-container">
+                {HOTEL_PROGRAMS.map(hotel => (
+                  <div
+                    key={hotel.id}
+                    className={`option-item ${preferredHotels.includes(hotel.id) ? 'selected' : ''}`}
+                    onClick={() => addHotel(hotel.id)}
+                  >
+                    <div className="option-content">{hotel.label}</div>
+                    {preferredHotels.includes(hotel.id) && (
+                      <span className="option-checkmark">✓</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Selected Items */}
+          <div>
+            <div className="h2">Selected Items</div>
+            
+            {/* Selected Cards */}
+            <div className="column-section">
+              <div className="h3">Selected Cards ({selectedCards.length})</div>
+              <div className="selected-items-container">
+                {selectedCards.length === 0 ? (
+                  <div className="small empty-state">
+                    Click on cards in the left column to select them
+                  </div>
+                ) : (
+                  selectedCards.map(cardId => {
+                    const card = ALL_CARDS.find(c => c.id === cardId);
+                    return card ? (
+                      <div key={card.id} className="selected-item">
+                        <div>
+                          <div className="option-name">{card.name}</div>
+                          <div className="small">{card.issuer} — {card.currency}</div>
+                        </div>
+                        <button
+                          className="btn small remove-button"
+                          onClick={() => removeCard(card.id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ) : null;
+                  })
+                )}
+              </div>
+            </div>
+
+            {/* Selected Airlines */}
+            <div className="column-section">
+              <div className="h3">Selected Airlines ({preferredAir.length})</div>
+              <div className="selected-items-container">
+                {preferredAir.length === 0 ? (
+                  <div className="small empty-state">
+                    Click on airlines in the left column to select them
+                  </div>
+                ) : (
+                  preferredAir.map(airlineId => {
+                    const airline = ALLIANCES.find(a => a.id === airlineId);
+                    return airline ? (
+                      <div key={airline.id} className="selected-item">
+                        <div className="option-content">{airline.label}</div>
+                        <button
+                          className="btn small remove-button"
+                          onClick={() => removeAirline(airline.id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ) : null;
+                  })
+                )}
+              </div>
+            </div>
+
+            {/* Selected Hotels */}
+            <div className="column-section">
+              <div className="h3">Selected Hotels ({preferredHotels.length})</div>
+              <div className="selected-items-container">
+                {preferredHotels.length === 0 ? (
+                  <div className="small empty-state">
+                    Click on hotels in the left column to select them
+                  </div>
+                ) : (
+                  preferredHotels.map(hotelId => {
+                    const hotel = HOTEL_PROGRAMS.find(h => h.id === hotelId);
+                    return hotel ? (
+                      <div key={hotel.id} className="selected-item">
+                        <div className="option-content">{hotel.label}</div>
+                        <button
+                          className="btn small remove-button"
+                          onClick={() => removeHotel(hotel.id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ) : null;
+                  })
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Home Airport Selection */}
+        <div className="home-airport-section">
+          <div className="h2">Home Airport</div>
+          <div className="row">
+            <select
+              className="select"
+              aria-label="Select common airport"
+              value={
+                AIRPORTS.find(a => a.code === homeAirport.toUpperCase())
+                  ? homeAirport.toUpperCase()
+                  : ''
+              }
+              onChange={e => setHomeAirport(e.target.value)}
+            >
+              <option value="">-- Pick common airport --</option>
+              {AIRPORTS.map(a => (
+                <option key={a.code} value={a.code}>
+                  {a.code} — {a.city}, {a.country}
+                </option>
+              ))}
+            </select>
+            <input
+              className="input mono"
+              value={homeAirport}
+              onChange={e => setHomeAirport(e.target.value.toUpperCase())}
+              placeholder="DFW"
+              maxLength={3}
+            />
+            {!/^[A-Z]{3}$/.test(homeAirport.toUpperCase()) && (
+              <div className="small">IATA codes are 3 letters (A–Z).</div>
+            )}
+          </div>
+        </div>
+
+        <div className="hr"></div>
+
+        <div className="badges">
+          <button
+            className="btn primary"
+            onClick={() =>
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth',
+              })
+            }
+          >
+            Run Rules Engine
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              const json = JSON.stringify(
+                {
+                  selectedCards,
+                  preferredAir,
+                  preferredHotels,
+                  homeAirport,
+                  plan: planBlocks,
+                },
+                null,
+                2
+              );
+              download('points_strategy_plan.json', json);
+            }}
+          >
+            Export JSON
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              const csv = toCSV(planBlocks);
+              download('points_strategy_plan.csv', csv, 'text/csv');
+            }}
+          >
+            Export CSV
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              setSelectedCards([
+                'capone-venture',
+                'amex-platinum',
+                'hilton-aspire',
+                'chase-ink-preferred',
+              ]);
+              setPreferredAir(['oneworld', 'ba', 'ib', 'qr']);
+              setPreferredHotels(['marriott', 'hilton', 'hyatt']);
+              setHomeAirport('DFW');
+            }}
+          >
+            Reset Defaults
+          </button>
+        </div>
+
+        <div className="hr"></div>
+
+        <div>
+          <div className="h1">Optimized Strategy Plan</div>
+          <div className="small">
+            Prioritized by your selections with explicit paths and notes.
+          </div>
+          {planBlocks.length === 0 && (
+            <div className="small" style={{ marginTop: 8 }}>
+              Add at least one card, an airline network, and a hotel program.
+            </div>
+          )}
+          <div style={{ display: 'grid', gap: 12, marginTop: 12 }}>
+            {planBlocks.map((b, i) => (
+              <div
+                key={i}
+                className="card"
+                style={{ background: '#0f1636', border: '1px solid #2d3a6a' }}
+              >
+                <div className="bd">
+                  <div className="h1" style={{ fontSize: 16 }}>
+                    {b.title}
+                  </div>
+                  {b.paths && b.paths.length > 0 && (
+                    <div style={{ marginTop: 10 }}>
+                      <div className="small">Transfer Paths:</div>
+                      <ul className="list">
+                        {b.paths.map((p, idx) => (
+                          <li key={idx}>
+                            <b>{p.source}</b> → <b>{p.to}</b>
+                            {p.via ? ` via ${p.via}` : ''}
+                            {p.note ? ` — ${p.note}` : ''}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {b.details && b.details.length > 0 && (
+                    <div style={{ marginTop: 10 }}>
+                      <div className="small">Notes:</div>
+                      <ul className="list">
+                        {b.details.map((d, j) => (
+                          <li key={j}>{d}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

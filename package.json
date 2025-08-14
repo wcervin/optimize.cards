@@ -1,6 +1,6 @@
 {
   "name": "points-strategy-planner",
-  "version": "2.0.11",
+  "version": "2.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,6 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "analyze": "npm run build && npx vite-bundle-analyzer dist",
-    "container:dev": "npm install && npm run dev",
     "container:test": "npm install && npm run test",
     "container:lint": "npm install && npm run lint",
     "container:format": "npm install && npm run format",
@@ -50,6 +49,7 @@
     "@testing-library/react": "^14.3.1",
     "@testing-library/jest-dom": "^6.1.0",
     "@testing-library/user-event": "^14.5.0",
+    "terser": "^5.28.1",
     "typescript": "^5.4.5",
     "vite": "^5.4.19",
     "vite-bundle-analyzer": "^0.7.0",

@@ -1,7 +1,7 @@
 // server.js
-const express = require('express');
-const path = require('path');
-const compression = require('compression');
+import express from 'express';
+import path from 'path';
+import compression from 'compression';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -54,6 +54,12 @@ app.get('/version', (_req, res) => {
 });
 
 // Serve static files
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const distDir = path.join(__dirname, 'dist');
 app.use(express.static(distDir, { 
   maxAge: '1h', 
