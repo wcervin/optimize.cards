@@ -647,39 +647,7 @@ export default function PointsStrategyPlanner() {
           </div>
         </div>
 
-        {/* Home Airport Selection */}
-        <div className="home-airport-section">
-          <div className="h2">Home Airport</div>
-          <div className="row">
-            <select
-              className="select"
-              aria-label="Select common airport"
-              value={
-                AIRPORTS.find(a => a.code === homeAirport.toUpperCase())
-                  ? homeAirport.toUpperCase()
-                  : ''
-              }
-              onChange={e => setHomeAirport(e.target.value)}
-            >
-              <option value="">-- Pick common airport --</option>
-              {AIRPORTS.map(a => (
-                <option key={a.code} value={a.code}>
-                  {a.code} — {a.city}, {a.country}
-                </option>
-              ))}
-            </select>
-            <input
-              className="input mono"
-              value={homeAirport}
-              onChange={e => setHomeAirport(e.target.value.toUpperCase())}
-              placeholder="DFW"
-              maxLength={3}
-            />
-            {!/^[A-Z]{3}$/.test(homeAirport.toUpperCase()) && (
-              <div className="small">IATA codes are 3 letters (A–Z).</div>
-            )}
-          </div>
-        </div>
+
 
         <div className="hr"></div>
 

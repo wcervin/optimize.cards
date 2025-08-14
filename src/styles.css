@@ -235,7 +235,7 @@ body {
   border-radius: 6px;
 }
 
-/* Two Column Layout - Full width utilization */
+/* Two Column Layout - Full width utilization with better alignment */
 .two-column-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -245,10 +245,70 @@ body {
   width: 100%;
 }
 
-/* Responsive breakpoints - Mobile-first approach */
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Section Groups for better visual organization */
+.section-group {
+  background: rgba(18, 25, 50, 0.3);
+  border: 1px solid rgba(45, 58, 106, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.section-group:hover {
+  border-color: rgba(110, 168, 254, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.section-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(45, 58, 106, 0.3);
+}
+
+.section-header .h3 {
+  margin: 0;
+  color: var(--accent);
+}
+
+.section-header .h3::after {
+  display: none;
+}
+
+/* Home Airport Inputs */
+.home-airport-inputs {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(45, 58, 106, 0.3);
+}
+
+.home-airport-inputs .h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--muted);
+}
+
+.airport-input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
 @media (min-width: 640px) {
-  .two-column-layout {
-    gap: 28px;
+  .section-group {
+    padding: 24px;
+  }
+  
+  .airport-input-row {
+    gap: 16px;
   }
 }
 
@@ -257,19 +317,30 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
+  
+  .section-group {
+    padding: 28px;
+  }
 }
 
+/* Additional responsive enhancements */
 @media (min-width: 1024px) {
   .two-column-layout {
     gap: 36px;
-    max-width: 100%;
+  }
+  
+  .section-group {
+    padding: 32px;
   }
 }
 
 @media (min-width: 1280px) {
   .two-column-layout {
     gap: 40px;
-    max-width: 100%;
+  }
+  
+  .section-group {
+    padding: 36px;
   }
 }
 
