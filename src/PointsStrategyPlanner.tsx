@@ -188,12 +188,12 @@ function buildPlan({
   cards,
   airPrefs,
   hotelPrefs,
-  airport,
+  airports,
 }: {
   cards: string[];
   airPrefs: string[];
   hotelPrefs: string[];
-  airport: string;
+  airports: string[];
 }): PlanBlock[] {
   const plan: PlanBlock[] = [];
   const hasUR = cards.some(
@@ -215,7 +215,7 @@ function buildPlan({
       paths.push({
         source: 'Membership Rewards',
         to: 'BA/Iberia/Qatar Avios',
-        note: `DFW: BA AA short-haul 7.5k; Iberia DFW–MAD 34k; Qatar QSuites ${airport.toUpperCase()}–DOH 70k`,
+        note: `DFW: BA AA short-haul 7.5k; Iberia DFW–MAD 34k; Qatar QSuites ${airports[0]?.toUpperCase() || 'DFW'}–DOH 70k`,
       });
     if (hasUR)
       paths.push({
