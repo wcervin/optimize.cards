@@ -38,44 +38,43 @@ body {
     Helvetica,
     Arial;
 }
+/* Remove container width restrictions for better design flexibility */
 .container {
-  max-width: 90vw;
+  width: 100%;
   margin: 0 auto;
   padding: 16px;
 }
 
 @media (min-width: 640px) {
   .container {
-    max-width: 88vw;
     padding: 20px;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    max-width: 85vw;
     padding: 24px;
   }
 }
 
 @media (min-width: 1024px) {
   .container {
-    max-width: 80vw;
     padding: 28px;
   }
 }
 
 @media (min-width: 1280px) {
   .container {
-    max-width: 75vw;
     padding: 32px;
   }
 }
+/* Remove restrictive grid class for better design flexibility */
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
+
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: 1fr 1fr;
@@ -236,13 +235,14 @@ body {
   border-radius: 6px;
 }
 
-/* Two Column Layout */
+/* Two Column Layout - Full width utilization */
 .two-column-layout {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
   margin-bottom: 24px;
   min-height: calc(100vh - 300px);
+  width: 100%;
 }
 
 /* Responsive breakpoints - Mobile-first approach */
@@ -498,10 +498,47 @@ body {
   margin-top: 8px;
 }
 
+/* Strategy Plan Visual Separation */
+.strategy-plan-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0 32px;
+  gap: 20px;
+}
+
+.separator-line {
+  height: 2px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 1px;
+}
+
+.separator-text {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0 16px;
+  white-space: nowrap;
+}
+
+.strategy-plan-section {
+  background: linear-gradient(135deg, rgba(18, 25, 50, 0.8), rgba(15, 22, 42, 0.9));
+  border: 1px solid rgba(110, 168, 254, 0.2);
+  border-radius: 24px;
+  padding: 32px;
+  margin-top: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
 .strategy-plan-grid {
   display: grid;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .strategy-plan-card {

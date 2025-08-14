@@ -741,9 +741,14 @@ export default function PointsStrategyPlanner() {
           </button>
         </div>
 
-        <div className="hr"></div>
+        {/* Visual separator for Strategy Plan section */}
+        <div className="strategy-plan-separator">
+          <div className="separator-line"></div>
+          <div className="separator-text">Strategy Results</div>
+          <div className="separator-line"></div>
+        </div>
 
-        <div>
+        <div className="strategy-plan-section">
           <div className="h1">Optimized Strategy Plan</div>
           <div className="small">
             Prioritized by your selections with explicit paths and notes.
