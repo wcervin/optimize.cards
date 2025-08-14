@@ -631,9 +631,9 @@ export default function PointsStrategyPlanner() {
           </div>
 
           {/* Right Column - Selected Items */}
-          <div>
+          <div className="right-column">
             
-            {/* Selected Cards */}
+            {/* Selected Cards - Aligns with Available Cards */}
             <div className="column-section">
               <div className="h3">Selected Cards ({selectedCards.length})</div>
               <div className="selected-items-container">
@@ -663,34 +663,63 @@ export default function PointsStrategyPlanner() {
               </div>
             </div>
 
-            {/* Selected Airlines */}
-            <div className="column-section">
-              <div className="h3">Selected Airlines ({preferredAir.length})</div>
-              <div className="selected-items-container">
-                {preferredAir.length === 0 ? (
-                  <div className="small empty-state">
-                    Click on airlines in the left column to select them
-                  </div>
-                ) : (
-                  preferredAir.map(airlineId => {
-                    const airline = ALLIANCES.find(a => a.id === airlineId);
-                    return airline ? (
-                      <div key={airline.id} className="selected-item">
-                        <div className="option-content">{airline.label}</div>
+            {/* Selected Airports & Airlines - Aligns with Available Airports & Airlines */}
+            <div className="section-group">
+              <div className="section-header">
+                <div className="h3">Selected Airports & Airlines</div>
+              </div>
+              
+              {/* Selected Home Airports */}
+              <div className="selected-airports-section">
+                <div className="h4">Selected Home Airports ({homeAirports.length})</div>
+                <div className="selected-items-container">
+                  {homeAirports.length === 0 ? (
+                    <div className="small empty-state">No home airports selected</div>
+                  ) : (
+                    homeAirports.map(airportCode => (
+                      <div key={airportCode} className="selected-item">
+                        <div className="option-content">{airportCode}</div>
                         <button
                           className="btn small remove-button"
-                          onClick={() => removeAirline(airline.id)}
+                          onClick={() => removeHomeAirport(airportCode)}
                         >
                           Remove
                         </button>
                       </div>
-                    ) : null;
-                  })
-                )}
+                    ))
+                  )}
+                </div>
+              </div>
+              
+              {/* Selected Airlines */}
+              <div className="selected-airlines-section">
+                <div className="h4">Selected Airlines ({preferredAir.length})</div>
+                <div className="selected-items-container">
+                  {preferredAir.length === 0 ? (
+                    <div className="small empty-state">
+                      Click on airlines in the left column to select them
+                    </div>
+                  ) : (
+                    preferredAir.map(airlineId => {
+                      const airline = ALLIANCES.find(a => a.id === airlineId);
+                      return airline ? (
+                        <div key={airline.id} className="selected-item">
+                          <div className="option-content">{airline.label}</div>
+                          <button
+                            className="btn small remove-button"
+                            onClick={() => removeAirline(airline.id)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ) : null;
+                    })
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Selected Hotels */}
+            {/* Selected Hotels - Aligns with Available Hotels */}
             <div className="column-section">
               <div className="h3">Selected Hotels ({preferredHotels.length})</div>
               <div className="selected-items-container">

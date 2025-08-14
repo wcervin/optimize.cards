@@ -238,41 +238,50 @@ body {
 /* Two Column Layout - Full width utilization with better alignment */
 .two-column-layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr; /* Mobile-first: single column */
   gap: 24px;
   margin-bottom: 24px;
   min-height: calc(100vh - 300px);
-  width: 100%;
+  width: 100%; /* Added for full width */
+}
+
+@media (min-width: 1024px) {
+  .two-column-layout {
+    grid-template-columns: 1fr 1fr; /* Desktop: two columns */
+  }
 }
 
 .left-column,
 .right-column {
   display: grid;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto auto; /* Three explicit rows for alignment */
   gap: 24px;
   align-items: start;
 }
 
-/* Ensure specific alignment for each section type */
+/* Ensure perfect horizontal alignment between left and right columns */
+/* Row 1: Credit Cards (left) aligns with Selected Cards (right) */
 .left-column .column-section:nth-child(1),
-.right-column .column-section:nth-child(1) {
-  grid-row: 1;
+.right-column .column-section:nth-child(1) { 
+  grid-row: 1; 
 }
 
+/* Row 2: Airports/Airlines (left) aligns with Selected Airports/Airlines (right) */
 .left-column .section-group,
-.right-column .column-section:nth-child(2) {
-  grid-row: 2;
+.right-column .section-group { 
+  grid-row: 2; 
 }
 
+/* Row 3: Hotels (left) aligns with Selected Hotels (right) */
 .left-column .column-section:nth-child(3),
-.right-column .column-section:nth-child(3) {
-  grid-row: 3;
+.right-column .column-section:nth-child(3) { 
+  grid-row: 3; 
 }
 
 /* Section Groups for better visual organization */
 .section-group {
-  background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(251, 191, 36, 0.2));
-  border: 1px solid rgba(251, 191, 36, 0.4);
+  background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(251, 191, 36, 0.2)); /* Yellow gradient */
+  border: 1px solid rgba(251, 191, 36, 0.4); /* Yellow border */
   border-radius: 16px;
   padding: 20px;
   transition: all 0.3s ease;
@@ -281,15 +290,14 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .section-group:hover {
-  border-color: rgba(251, 191, 36, 0.6);
-  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.2);
+  border-color: rgba(251, 191, 36, 0.6); /* Yellow hover */
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.2); /* Yellow shadow */
 }
 
 /* Individual section outlines for better alignment */
 .column-section {
-  background: rgba(18, 25, 50, 0.3);
+  background: rgba(18, 25, 50, 0.3); /* Default grey background */
   border: 1px solid rgba(45, 58, 106, 0.4);
   border-radius: 16px;
   padding: 20px;
@@ -299,15 +307,11 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .column-section:hover {
   border-color: rgba(110, 168, 254, 0.3);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
-
-.column-section:last-child {
-  margin-bottom: 0;
-}
+.column-section:last-child { margin-bottom: 0; }
 
 /* Ensure consistent heights for alignment */
 .column-section .options-container,
@@ -321,7 +325,6 @@ body {
   background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(34, 197, 94, 0.2));
   border-color: rgba(34, 197, 94, 0.4);
 }
-
 .column-section:has(.h3:contains("Credit Cards")):hover {
   border-color: rgba(34, 197, 94, 0.6);
   box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
@@ -332,16 +335,29 @@ body {
   background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(59, 130, 246, 0.2));
   border-color: rgba(59, 130, 246, 0.4);
 }
-
 .column-section:has(.h3:contains("Hotel Programs")):hover {
   border-color: rgba(59, 130, 246, 0.6);
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
 }
 
-.section-header {
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(45, 58, 106, 0.3);
+/* Selected Cards section - Green gradient to match Credit Cards */
+.column-section:has(.h3:contains("Selected Cards")) {
+  background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(34, 197, 94, 0.2));
+  border-color: rgba(34, 197, 94, 0.4);
+}
+.column-section:has(.h3:contains("Selected Cards")):hover {
+  border-color: rgba(34, 197, 94, 0.6);
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
+}
+
+/* Selected Hotels section - Blue gradient to match Hotel Programs */
+.column-section:has(.h3:contains("Selected Hotels")) {
+  background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(59, 130, 246, 0.2));
+  border-color: rgba(59, 130, 246, 0.4);
+}
+.column-section:has(.h3:contains("Selected Hotels")):hover {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
 }
 
 .section-header .h3 {
@@ -350,10 +366,7 @@ body {
   font-size: 18px;
   font-weight: 600;
 }
-
-.section-header .h3::after {
-  display: none;
-}
+.section-header .h3::after { display: none; }
 
 /* Enhanced section titles */
 .column-section .h3 {
@@ -362,25 +375,20 @@ body {
   font-weight: 600;
   margin: 0 0 16px 0;
 }
-
-.column-section .h3::after {
-  display: none;
-}
+.column-section .h3::after { display: none; }
 
 /* Credit Cards section title - Green accent */
-.column-section:has(.h3:contains("Credit Cards")) .h3 {
-  color: #22c55e;
+.column-section:has(.h3:contains("Credit Cards")) .h3,
+.column-section:has(.h3:contains("Selected Cards")) .h3 { 
+  color: #22c55e; 
 }
-
 /* Hotels section title - Blue accent */
-.column-section:has(.h3:contains("Hotel Programs")) .h3 {
-  color: #3b82f6;
+.column-section:has(.h3:contains("Hotel Programs")) .h3,
+.column-section:has(.h3:contains("Selected Hotels")) .h3 { 
+  color: #3b82f6; 
 }
-
 /* Airports/Airlines section title - Yellow accent */
-.section-group .h3 {
-  color: #fbbf24;
-}
+.section-group .h3 { color: #fbbf24; }
 
 /* Home Airport Section */
 .home-airport-section {
@@ -388,14 +396,12 @@ body {
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(45, 58, 106, 0.3);
 }
-
 .home-airport-section .h4 {
   font-size: 14px;
   font-weight: 600;
   margin: 0 0 12px 0;
   color: var(--muted);
 }
-
 .airport-input-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -410,7 +416,6 @@ body {
   gap: 8px;
   margin-top: 12px;
 }
-
 .airport-tag {
   display: flex;
   align-items: center;
@@ -423,7 +428,6 @@ body {
   font-weight: 600;
   color: var(--ink);
 }
-
 .remove-airport-btn {
   background: none;
   border: none;
@@ -440,18 +444,31 @@ body {
   border-radius: 50%;
   transition: all 0.2s ease;
 }
-
 .remove-airport-btn:hover {
   background: rgba(239, 68, 68, 0.2);
   transform: scale(1.1);
 }
 
 /* Airline Options */
-.airline-options {
-  margin-top: 20px;
+.airline-options { margin-top: 20px; }
+.airline-options .h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--muted);
 }
 
-.airline-options .h4 {
+/* Selected Airports & Airlines Sections */
+.selected-airports-section,
+.selected-airlines-section {
+  margin-bottom: 20px;
+}
+.selected-airports-section:last-child,
+.selected-airlines-section:last-child {
+  margin-bottom: 0;
+}
+.selected-airports-section .h4,
+.selected-airlines-section .h4 {
   font-size: 14px;
   font-weight: 600;
   margin: 0 0 12px 0;
