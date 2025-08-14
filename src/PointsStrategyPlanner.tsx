@@ -497,252 +497,276 @@ export default function PointsStrategyPlanner() {
       <div className="bd">
         {/* Two Column Layout */}
         <div className="two-column-layout">
-          {/* Left Column - Available Options */}
-          <div>
-            
-            {/* Cards Section */}
-            <div className="column-section">
-              <div className="h3">Credit Cards</div>
-              <div className="options-container">
-                {ALL_CARDS.map(card => (
-                  <div
-                    key={card.id}
-                    className={`option-item ${selectedCards.includes(card.id) ? 'selected' : ''}`}
-                    onClick={() => addCard(card.id)}
-                  >
-                    <div className="option-content">
-                      <div className="option-name">{card.name}</div>
-                      <div className="small">{card.issuer} — {card.currency}</div>
-                      {card.tags && (
-                        <div className="option-details small">
-                          {card.tags.join(', ')}
-                        </div>
-                      )}
-                    </div>
-                    {selectedCards.includes(card.id) && (
-                      <span className="option-checkmark">✓</span>
-                    )}
-                  </div>
-                ))}
-              </div>
+          
+          {/* Section 1: Credit Cards */}
+          <div className="section-pair">
+            <div className="section-pair-header">
+              <h2>Credit Cards</h2>
             </div>
-
-            {/* Airlines & Home Airport Section */}
-            <div className="section-group">
-              <div className="section-header">
-                <div className="h3">Airline Programs & Home Airports</div>
-              </div>
-              
-              {/* Home Airport Selection - At the top */}
-              <div className="home-airport-section">
-                <div className="h4">Home Airports</div>
-                <div className="airport-input-row">
-                  <select
-                    className="select"
-                    aria-label="Select common airport"
-                    value=""
-                    onChange={e => {
-                      if (e.target.value) {
-                        addHomeAirport(e.target.value);
-                        e.target.value = '';
-                      }
-                    }}
-                  >
-                    <option value="">-- Add airport --</option>
-                    {AIRPORTS.map(a => (
-                      <option key={a.code} value={a.code}>
-                        {a.code} — {a.city}, {a.country}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    className="input mono"
-                    placeholder="DFW"
-                    maxLength={3}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && e.currentTarget.value) {
-                        const code = e.currentTarget.value.toUpperCase();
-                        if (/^[A-Z]{3}$/.test(code)) {
-                          addHomeAirport(code);
-                          e.currentTarget.value = '';
-                        }
-                      }
-                    }}
-                  />
-                </div>
-                
-                {/* Selected Home Airports */}
-                <div className="selected-airports">
-                  {homeAirports.map(airportCode => (
-                    <div key={airportCode} className="airport-tag">
-                      <span>{airportCode}</span>
-                      <button
-                        className="remove-airport-btn"
-                        onClick={() => removeHomeAirport(airportCode)}
-                        aria-label={`Remove ${airportCode}`}
+            <div className="section-pair-content">
+              {/* Left Column - Available Cards */}
+              <div className="left-column">
+                <div className="column-section">
+                  <div className="h3">Available Cards</div>
+                  <div className="options-container">
+                    {ALL_CARDS.map(card => (
+                      <div
+                        key={card.id}
+                        className={`option-item ${selectedCards.includes(card.id) ? 'selected' : ''}`}
+                        onClick={() => addCard(card.id)}
                       >
-                        ×
-                      </button>
-                    </div>
-                  ))}
-                  {homeAirports.length === 0 && (
-                    <div className="small empty-state">No home airports selected</div>
-                  )}
-                </div>
-              </div>
-              
-              <div className="airline-options">
-                <div className="h4">Airline Programs</div>
-                <div className="options-container">
-                  {ALLIANCES.map(airline => (
-                    <div
-                      key={airline.id}
-                      className={`option-item ${preferredAir.includes(airline.id) ? 'selected' : ''}`}
-                      onClick={() => addAirline(airline.id)}
-                    >
-                      <div className="option-content">{airline.label}</div>
-                      {preferredAir.includes(airline.id) && (
-                        <span className="option-checkmark">✓</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Hotels Section */}
-            <div className="column-section">
-              <div className="h3">Hotel Programs</div>
-              <div className="options-container">
-                {HOTEL_PROGRAMS.map(hotel => (
-                  <div
-                    key={hotel.id}
-                    className={`option-item ${preferredHotels.includes(hotel.id) ? 'selected' : ''}`}
-                    onClick={() => addHotel(hotel.id)}
-                  >
-                    <div className="option-content">{hotel.label}</div>
-                    {preferredHotels.includes(hotel.id) && (
-                      <span className="option-checkmark">✓</span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Selected Items */}
-          <div className="right-column">
-            
-            {/* Selected Cards - Aligns with Available Cards */}
-            <div className="column-section">
-              <div className="h3">Selected Cards ({selectedCards.length})</div>
-              <div className="selected-items-container">
-                {selectedCards.length === 0 ? (
-                  <div className="small empty-state">
-                    Click on cards in the left column to select them
-                  </div>
-                ) : (
-                  selectedCards.map(cardId => {
-                    const card = ALL_CARDS.find(c => c.id === cardId);
-                    return card ? (
-                      <div key={card.id} className="selected-item">
                         <div>
                           <div className="option-name">{card.name}</div>
                           <div className="small">{card.issuer} — {card.currency}</div>
                         </div>
-                        <button
-                          className="btn small remove-button"
-                          onClick={() => removeCard(card.id)}
-                        >
-                          Remove
-                        </button>
+                        {selectedCards.includes(card.id) && (
+                          <span className="option-checkmark">✓</span>
+                        )}
                       </div>
-                    ) : null;
-                  })
-                )}
-              </div>
-            </div>
-
-            {/* Selected Airports & Airlines - Aligns with Available Airports & Airlines */}
-            <div className="section-group">
-              <div className="section-header">
-                <div className="h3">Selected Airports & Airlines</div>
-              </div>
-              
-              {/* Selected Home Airports */}
-              <div className="selected-airports-section">
-                <div className="h4">Selected Home Airports ({homeAirports.length})</div>
-                <div className="selected-items-container">
-                  {homeAirports.length === 0 ? (
-                    <div className="small empty-state">No home airports selected</div>
-                  ) : (
-                    homeAirports.map(airportCode => (
-                      <div key={airportCode} className="selected-item">
-                        <div className="option-content">{airportCode}</div>
-                        <button
-                          className="btn small remove-button"
-                          onClick={() => removeHomeAirport(airportCode)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ))
-                  )}
+                    ))}
+                  </div>
                 </div>
               </div>
-              
-              {/* Selected Airlines */}
-              <div className="selected-airlines-section">
-                <div className="h4">Selected Airlines ({preferredAir.length})</div>
-                <div className="selected-items-container">
-                  {preferredAir.length === 0 ? (
-                    <div className="small empty-state">
-                      Click on airlines in the left column to select them
+
+              {/* Right Column - Selected Cards */}
+              <div className="right-column">
+                <div className="column-section">
+                  <div className="h3">Selected Cards ({selectedCards.length})</div>
+                  <div className="selected-items-container">
+                    {selectedCards.length === 0 ? (
+                      <div className="small empty-state">
+                        Click on cards in the left column to select them
+                      </div>
+                    ) : (
+                      selectedCards.map(cardId => {
+                        const card = ALL_CARDS.find(c => c.id === cardId);
+                        return card ? (
+                          <div key={card.id} className="selected-item">
+                            <div>
+                              <div className="option-name">{card.name}</div>
+                              <div className="small">{card.issuer} — {card.currency}</div>
+                            </div>
+                            <button
+                              className="btn small remove-button"
+                              onClick={() => removeCard(card.id)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : null;
+                      })
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 2: Airports & Airlines */}
+          <div className="section-pair">
+            <div className="section-pair-header">
+              <h2>Airports & Airlines</h2>
+            </div>
+            <div className="section-pair-content">
+              {/* Left Column - Available Airports & Airlines */}
+              <div className="left-column">
+                <div className="section-group">
+                  <div className="section-header">
+                    <div className="h3">Airline Programs & Home Airports</div>
+                  </div>
+                  
+                  {/* Home Airport Selection - At the top */}
+                  <div className="home-airport-section">
+                    <div className="h4">Home Airports</div>
+                    <div className="airport-input-row">
+                      <select
+                        className="select"
+                        aria-label="Select common airport"
+                        value=""
+                        onChange={e => {
+                          if (e.target.value) {
+                            addHomeAirport(e.target.value);
+                            e.target.value = '';
+                          }
+                        }}
+                      >
+                        <option value="">-- Add airport --</option>
+                        {AIRPORTS.map(a => (
+                          <option key={a.code} value={a.code}>
+                            {a.code} — {a.city}, {a.country}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        className="input mono"
+                        placeholder="DFW"
+                        maxLength={3}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && e.currentTarget.value) {
+                            const code = e.currentTarget.value.toUpperCase();
+                            if (/^[A-Z]{3}$/.test(code)) {
+                              addHomeAirport(code);
+                              e.currentTarget.value = '';
+                            }
+                          }
+                        }}
+                      />
                     </div>
-                  ) : (
-                    preferredAir.map(airlineId => {
-                      const airline = ALLIANCES.find(a => a.id === airlineId);
-                      return airline ? (
-                        <div key={airline.id} className="selected-item">
-                          <div className="option-content">{airline.label}</div>
+                    
+                    {/* Selected Home Airports */}
+                    <div className="selected-airports">
+                      {homeAirports.map(airportCode => (
+                        <div key={airportCode} className="airport-tag">
+                          <span>{airportCode}</span>
                           <button
-                            className="btn small remove-button"
-                            onClick={() => removeAirline(airline.id)}
+                            className="remove-airport-btn"
+                            onClick={() => removeHomeAirport(airportCode)}
+                            aria-label={`Remove ${airportCode}`}
                           >
-                            Remove
+                            ×
                           </button>
                         </div>
-                      ) : null;
-                    })
-                  )}
+                      ))}
+                      {homeAirports.length === 0 && (
+                        <div className="small empty-state">No home airports selected</div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="airline-options">
+                    <div className="h4">Airline Programs</div>
+                    <div className="options-container">
+                      {ALLIANCES.map(airline => (
+                        <div
+                          key={airline.id}
+                          className={`option-item ${preferredAir.includes(airline.id) ? 'selected' : ''}`}
+                          onClick={() => addAirline(airline.id)}
+                        >
+                          <div className="option-content">{airline.label}</div>
+                          {preferredAir.includes(airline.id) && (
+                            <span className="option-checkmark">✓</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Selected Airports & Airlines */}
+              <div className="right-column">
+                <div className="section-group">
+                  <div className="section-header">
+                    <div className="h3">Selected Airports & Airlines</div>
+                  </div>
+                  
+                  {/* Selected Home Airports */}
+                  <div className="selected-airports-section">
+                    <div className="h4">Selected Home Airports ({homeAirports.length})</div>
+                    <div className="selected-items-container">
+                      {homeAirports.length === 0 ? (
+                        <div className="small empty-state">No home airports selected</div>
+                      ) : (
+                        homeAirports.map(airportCode => (
+                          <div key={airportCode} className="selected-item">
+                            <div className="option-content">{airportCode}</div>
+                            <button
+                              className="btn small remove-button"
+                              onClick={() => removeHomeAirport(airportCode)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Selected Airlines */}
+                  <div className="selected-airlines-section">
+                    <div className="h4">Selected Airlines ({preferredAir.length})</div>
+                    <div className="selected-items-container">
+                      {preferredAir.length === 0 ? (
+                        <div className="small empty-state">
+                          Click on airlines in the left column to select them
+                        </div>
+                      ) : (
+                        preferredAir.map(airlineId => {
+                          const airline = ALLIANCES.find(a => a.id === airlineId);
+                          return airline ? (
+                            <div key={airline.id} className="selected-item">
+                              <div className="option-content">{airline.label}</div>
+                              <button
+                                className="btn small remove-button"
+                                onClick={() => removeAirline(airline.id)}
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ) : null;
+                        })
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Selected Hotels - Aligns with Available Hotels */}
-            <div className="column-section">
-              <div className="h3">Selected Hotels ({preferredHotels.length})</div>
-              <div className="selected-items-container">
-                {preferredHotels.length === 0 ? (
-                  <div className="small empty-state">
-                    Click on hotels in the left column to select them
-                  </div>
-                ) : (
-                  preferredHotels.map(hotelId => {
-                    const hotel = HOTEL_PROGRAMS.find(h => h.id === hotelId);
-                    return hotel ? (
-                      <div key={hotel.id} className="selected-item">
+          {/* Section 3: Hotels */}
+          <div className="section-pair">
+            <div className="section-pair-header">
+              <h2>Hotel Programs</h2>
+            </div>
+            <div className="section-pair-content">
+              {/* Left Column - Available Hotels */}
+              <div className="left-column">
+                <div className="column-section">
+                  <div className="h3">Available Hotel Programs</div>
+                  <div className="options-container">
+                    {HOTEL_PROGRAMS.map(hotel => (
+                      <div
+                        key={hotel.id}
+                        className={`option-item ${preferredHotels.includes(hotel.id) ? 'selected' : ''}`}
+                        onClick={() => addHotel(hotel.id)}
+                      >
                         <div className="option-content">{hotel.label}</div>
-                        <button
-                          className="btn small remove-button"
-                          onClick={() => removeHotel(hotel.id)}
-                        >
-                          Remove
-                        </button>
+                        {preferredHotels.includes(hotel.id) && (
+                          <span className="option-checkmark">✓</span>
+                        )}
                       </div>
-                    ) : null;
-                  })
-                )}
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Selected Hotels */}
+              <div className="right-column">
+                <div className="column-section">
+                  <div className="h3">Selected Hotels ({preferredHotels.length})</div>
+                  <div className="selected-items-container">
+                    {preferredHotels.length === 0 ? (
+                      <div className="small empty-state">
+                        Click on hotels in the left column to select them
+                      </div>
+                    ) : (
+                      preferredHotels.map(hotelId => {
+                        const hotel = HOTEL_PROGRAMS.find(h => h.id === hotelId);
+                        return hotel ? (
+                          <div key={hotel.id} className="selected-item">
+                            <div className="option-content">{hotel.label}</div>
+                            <button
+                              className="btn small remove-button"
+                              onClick={() => removeHotel(hotel.id)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : null;
+                      })
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

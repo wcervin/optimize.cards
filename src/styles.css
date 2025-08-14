@@ -241,45 +241,60 @@ body {
 
 /* Two Column Layout - Full width utilization with better alignment */
 .two-column-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Space between section pairs */
+  margin-bottom: 24px;
+  min-height: calc(100vh - 300px);
+  width: 100%;
+}
+
+/* Section Pairs - Each major section with its own container */
+.section-pair {
+  background: rgba(18, 25, 50, 0.2);
+  border: 1px solid rgba(45, 58, 106, 0.3);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+
+.section-pair:hover {
+  border-color: rgba(110, 168, 254, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Pair Header */
+.section-pair-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(110, 168, 254, 0.3);
+}
+
+.section-pair-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--accent);
+  text-align: center;
+}
+
+/* Section Pair Content - Two column layout within each section */
+.section-pair-content {
   display: grid;
   grid-template-columns: 1fr; /* Mobile-first: single column */
   gap: 24px;
-  margin-bottom: 24px;
-  min-height: calc(100vh - 300px);
-  width: 100%; /* Added for full width */
 }
 
 @media (min-width: 1024px) {
-  .two-column-layout {
+  .section-pair-content {
     grid-template-columns: 1fr 1fr; /* Desktop: two columns */
   }
 }
 
 .left-column,
 .right-column {
-  display: grid;
-  grid-template-rows: auto auto auto; /* Three explicit rows for alignment */
-  gap: 24px;
-  align-items: start;
-}
-
-/* Ensure perfect horizontal alignment between left and right columns */
-/* Row 1: Credit Cards (left) aligns with Selected Cards (right) */
-.left-column .column-section:nth-child(1),
-.right-column .column-section:nth-child(1) { 
-  grid-row: 1; 
-}
-
-/* Row 2: Airports/Airlines (left) aligns with Selected Airports/Airlines (right) */
-.left-column .section-group,
-.right-column .section-group { 
-  grid-row: 2; 
-}
-
-/* Row 3: Hotels (left) aligns with Selected Hotels (right) */
-.left-column .column-section:nth-child(3),
-.right-column .column-section:nth-child(3) { 
-  grid-row: 3; 
+  display: flex;
+  flex-direction: column;
 }
 
 /* Section Groups for better visual organization - Clean borders */
@@ -329,26 +344,26 @@ body {
 }
 
 /* Credit Cards Section - Grey to Green gradient */
-.column-section:has(.h3:contains("Credit Cards")) {
+.column-section:has(.h3:contains("Available Cards")) {
   background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(34, 197, 94, 0.2));
   border-color: rgba(34, 197, 94, 0.4);
 }
-.column-section:has(.h3:contains("Credit Cards")):hover {
+.column-section:has(.h3:contains("Available Cards")):hover {
   border-color: rgba(34, 197, 94, 0.6);
   box-shadow: 0 8px 32px rgba(34, 197, 94, 0.2); /* Enhanced hover shadow */
 }
 
 /* Hotels Section - Grey to Blue gradient */
-.column-section:has(.h3:contains("Hotel Programs")) {
+.column-section:has(.h3:contains("Available Hotel Programs")) {
   background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(59, 130, 246, 0.2));
   border-color: rgba(59, 130, 246, 0.4);
 }
-.column-section:has(.h3:contains("Hotel Programs")):hover {
+.column-section:has(.h3:contains("Available Hotel Programs")):hover {
   border-color: rgba(59, 130, 246, 0.6);
   box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2); /* Enhanced hover shadow */
 }
 
-/* Selected Cards section - Green gradient to match Credit Cards */
+/* Selected Cards section - Green gradient to match Available Cards */
 .column-section:has(.h3:contains("Selected Cards")) {
   background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(34, 197, 94, 0.2));
   border-color: rgba(34, 197, 94, 0.4);
@@ -358,7 +373,7 @@ body {
   box-shadow: 0 8px 32px rgba(34, 197, 94, 0.2); /* Enhanced hover shadow */
 }
 
-/* Selected Hotels section - Blue gradient to match Hotel Programs */
+/* Selected Hotels section - Blue gradient to match Available Hotel Programs */
 .column-section:has(.h3:contains("Selected Hotels")) {
   background: linear-gradient(135deg, rgba(18, 25, 50, 0.4), rgba(59, 130, 246, 0.2));
   border-color: rgba(59, 130, 246, 0.4);
