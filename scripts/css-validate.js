@@ -30,12 +30,8 @@ function validateCSS(cssContent) {
     });
   }
   
-  // Check for missing semicolons before closing braces
-  const missingSemicolonRegex = /[^;]\s*}/g;
-  const missingSemicolonMatches = cssContent.match(missingSemicolonRegex);
-  if (missingSemicolonMatches) {
-    issues.push(`Potential missing semicolons before closing braces: ${missingSemicolonMatches.length} instances`);
-  }
+  // Note: Semicolon validation removed due to false positives
+  // CSS doesn't require semicolons before closing braces
   
   // Check for valid CSS custom properties
   const customPropertyRegex = /var\s*\(\s*--[^)]+\)/g;
